@@ -1,31 +1,19 @@
 import React, { useMemo } from 'react';
 import { motion } from 'framer-motion';
-import { 
-  ArrowRight, 
-  CheckCircle2, 
-  UserCheck, 
-  LayoutTemplate, 
-  ShieldCheck, 
-  Rocket, 
-  HelpCircle 
-} from 'lucide-react';
+import { ArrowRight, CheckCircle2, Circle, Lock } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Phase } from '@/data/deploymentSteps';
 import { useDeploymentStore } from '@/store/useDeploymentStore';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Progress } from '@/components/ui/progress';
+import * as Icons from 'lucide-react';
 interface PhaseCardProps {
   phase: Phase;
   isActive?: boolean;
   isLocked?: boolean;
   onClick?: () => void;
 }
-// Map string icon names to actual components to avoid namespace import issues
-const IconMap: Record<string, React.ElementType> = {
-  UserCheck,
-  LayoutTemplate,
-  ShieldCheck,
-  Rocket
-};
 export function PhaseCard({ phase, isActive, isLocked, onClick }: PhaseCardProps) {
   const completedSteps = useDeploymentStore((state) => state.completedSteps);
   // Calculate progress for this specific phase
@@ -35,18 +23,18 @@ export function PhaseCard({ phase, isActive, isLocked, onClick }: PhaseCardProps
     return (completedCount / phase.steps.length) * 100;
   }, [phase.steps, completedSteps]);
   const isComplete = progress === 100;
-  // Dynamic Icon Component with fallback
-  const IconComponent = IconMap[phase.icon] || HelpCircle;
+  // Dynamic Icon Component
+  const IconComponent = (Icons as any)[phase.icon] || Icons.HelpCircle;
   return (
     <motion.div
       whileHover={{ y: -4 }}
       transition={{ type: "spring", stiffness: 300, damping: 20 }}
     >
-      <Card
+      <Card 
         className={cn(
           "h-full cursor-pointer transition-all duration-300 border-l-4 overflow-hidden relative group",
-          isActive
-            ? "border-l-[#0F9D58] shadow-md ring-1 ring-[#0F9D58]/20"
+          isActive 
+            ? "border-l-[#0F9D58] shadow-md ring-1 ring-[#0F9D58]/20" 
             : "border-l-transparent hover:border-l-[#0F9D58]/50",
           isComplete && "border-l-[#0F9D58] bg-green-50/10",
           isLocked && "opacity-60 grayscale pointer-events-none"
@@ -83,19 +71,10 @@ export function PhaseCard({ phase, isActive, isLocked, onClick }: PhaseCardProps
                 <span>Progress</span>
                 <span>{phase.steps.filter(s => completedSteps.includes(s.id)).length}/{phase.steps.length} steps</span>
               </div>
-              {/* Custom Progress Bar to avoid type errors and ensure correct styling */}
-              <div className="h-2 w-full bg-secondary rounded-full overflow-hidden">
-                <div 
-                  className={cn(
-                    "h-full transition-all duration-500 ease-in-out rounded-full",
-                    isComplete ? "bg-[#0F9D58]" : "bg-primary"
-                  )}
-                  style={{ width: `${progress}%` }}
-                />
-              </div>
+              <Progress value={progress} className="h-2" indicatorClassName={isComplete ? "bg-[#0F9D58]" : ""} />
             </div>
             <div className="flex items-center text-sm font-medium text-[#4285F4] group-hover:translate-x-1 transition-transform">
-              {isComplete ? "Review Steps" : "Continue Phase"}
+              {isComplete ? "Review Steps" : "Continue Phase"} 
               <ArrowRight className="w-4 h-4 ml-1" />
             </div>
           </div>

@@ -1,6 +1,6 @@
 # LaunchPad: Play Store Deployment Assistant
 
-[aureliabutton]
+[![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/monsieurgorgui-cell/launchpad-play-store-deployment-assistant)
 
 A comprehensive, interactive web application designed to guide developers through the complex process of deploying mobile applications to the Google Play Store. LaunchPad serves as a digital assistant that breaks down the daunting deployment process into manageable, trackable steps.
 
@@ -91,7 +91,7 @@ This project is configured for seamless deployment to Cloudflare Workers.
 
 You can deploy this project immediately using the button below:
 
-[aureliabutton]
+[![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/monsieurgorgui-cell/launchpad-play-store-deployment-assistant)
 
 ### Manual Deployment
 

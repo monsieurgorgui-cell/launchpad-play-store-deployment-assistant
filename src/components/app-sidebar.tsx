@@ -1,8 +1,9 @@
 import React from "react";
-import { 
-  LayoutDashboard, 
-  Image as ImageIcon, 
-  ShieldAlert, 
+import { Link, useLocation } from "react-router-dom";
+import {
+  LayoutDashboard,
+  Image as ImageIcon,
+  ShieldAlert,
   Rocket,
   ExternalLink,
   Settings
@@ -20,6 +21,8 @@ import {
   SidebarMenuButton,
 } from "@/components/ui/sidebar";
 export function AppSidebar(): JSX.Element {
+  const location = useLocation();
+  const pathname = location.pathname;
   return (
     <Sidebar>
       <SidebarHeader>
@@ -38,27 +41,27 @@ export function AppSidebar(): JSX.Element {
           <SidebarGroupLabel>Deployment</SidebarGroupLabel>
           <SidebarMenu>
             <SidebarMenuItem>
-              <SidebarMenuButton asChild isActive tooltip="Dashboard">
-                <a href="#" className="font-medium">
-                  <LayoutDashboard className="text-[#0F9D58]" /> 
+              <SidebarMenuButton asChild isActive={pathname === "/"} tooltip="Dashboard">
+                <Link to="/">
+                  <LayoutDashboard className={pathname === "/" ? "text-[#0F9D58]" : ""} />
                   <span>Mission Control</span>
-                </a>
+                </Link>
               </SidebarMenuButton>
             </SidebarMenuItem>
             <SidebarMenuItem>
-              <SidebarMenuButton asChild tooltip="Asset Guide">
-                <a href="#">
-                  <ImageIcon /> 
+              <SidebarMenuButton asChild isActive={pathname === "/assets"} tooltip="Asset Guide">
+                <Link to="/assets">
+                  <ImageIcon className={pathname === "/assets" ? "text-[#0F9D58]" : ""} />
                   <span>Asset Studio</span>
-                </a>
+                </Link>
               </SidebarMenuButton>
             </SidebarMenuItem>
             <SidebarMenuItem>
-              <SidebarMenuButton asChild tooltip="Policy Check">
-                <a href="#">
-                  <ShieldAlert /> 
+              <SidebarMenuButton asChild isActive={pathname === "/policy"} tooltip="Policy Check">
+                <Link to="/policy">
+                  <ShieldAlert className={pathname === "/policy" ? "text-[#0F9D58]" : ""} />
                   <span>Policy Check</span>
-                </a>
+                </Link>
               </SidebarMenuButton>
             </SidebarMenuItem>
           </SidebarMenu>
@@ -70,7 +73,7 @@ export function AppSidebar(): JSX.Element {
             <SidebarMenuItem>
               <SidebarMenuButton asChild>
                 <a href="https://play.google.com/console" target="_blank" rel="noopener noreferrer">
-                  <ExternalLink className="w-4 h-4" /> 
+                  <ExternalLink className="w-4 h-4" />
                   <span>Play Console</span>
                 </a>
               </SidebarMenuButton>

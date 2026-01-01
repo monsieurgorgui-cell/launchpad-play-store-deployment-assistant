@@ -77,11 +77,7 @@ function updateWranglerJsonc() {
 }
 
 function runSetupCommands() {
-    const commands = [
-    "bun add react-circular-progressbar@^2.1.0",
-    "bun add canvas-confetti@^1.9.2",
-    "bun add @types/canvas-confetti@^1.6.4"
-];
+    const commands = [];
     
     if (commands.length === 0) {
         console.log('⊘ No setup commands to run');
